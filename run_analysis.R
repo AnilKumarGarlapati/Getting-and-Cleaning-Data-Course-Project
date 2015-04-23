@@ -34,7 +34,7 @@ ST <- rbind(TestST,TrainST)
 X  <- rbind(TestX,TrainX)
 Y  <- rbind(TestY,TrainY)
 
-# STEP 4: CHANGING COLUMN NAMES
+# STEP 5: CHANGING COLUMN NAMES
 #	Rename Columns of X with names from features.txt file		
 #	Rename Column  of Y as "Activity_Name"
 #	Rename Column  of ST as "Volunteer_ID"
@@ -43,25 +43,19 @@ names(X) <- Features[ ,2]
 names(Y) <- "Activity_Name"
 names(ST) <- "Volunteer_ID"
 
-# STEP 5: Change ROW Values of Y data frame as mentioned in "activity_labels.txt"
+# STEP 6: Change ROW Values of Y data frame as mentioned in "activity_labels.txt"
 #	1 - WALKING
-
 #	2 - WALKING_UPSTAIRS
-
 #	3 - WALKING_DOWNSTAIRS
-
 #	4 - SITTING
-
 #	5 - STANDING
-
 #	6 - LAYING
-
 
 Activity_Names <- unique(Y[ ,1])
 len <- length(Activity_Names)
 for(i in 1:len) { Y$Activity_Name[Y$Activity_Name == i] <- as.character(Activities[i,2]) }
 
-# STEP 6: Filter the MEAN and STANDARD DEVIATION columns from X dataset
+# STEP 7: Filter the MEAN and STANDARD DEVIATION columns from X dataset
 #	and create new data set "X_MeanAndStd_Cols"
 
 MeanCols <- grep("mean()",names(X))
@@ -69,13 +63,13 @@ StdCols <- grep("std()",names(X))
 MeanAndStdCols <- c(MeanCols,StdCols)
 X_MeanAndStd_Cols <- X[ ,MeanAndStdCols]
 
-# STEP 7: COLUMN BIND Subject, X and Y data sets to form MergedDF data set
+# STEP 8: COLUMN BIND Subject, X and Y data sets to form MergedDF data set
 #	Order it by Volunteer ID and Activity name columns
 
 MergedDF <- cbind (ST,Y,X_MeanAndStd_Cols)
 OrderedDF <- MergedDF[with(MergedDF,order(MergedDF$Volunteer_ID,MergedDF$Activity_Name)),]
 
-# STEP 8: FIND MEAN of each variable for each activity(Activity_Name) and each subject (Volunteer_ID)
+# STEP 9: FIND MEAN of each variable for each activity(Activity_Name) and each subject (Volunteer_ID)
 #	Write the data set to R workign directory as TidyDataSet.txt
 
 TempDF <- cbind (X_MeanAndStd_Cols,ST,Y)
