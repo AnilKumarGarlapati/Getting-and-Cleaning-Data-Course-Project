@@ -22,3 +22,4 @@ MergedDF	    - Data Frame that has Subject , X and Y data from both TEST and TRA
 OrderedDF	    - Ordered MergedDF data frame
 MeanDF	    	    - Data frame with Activity and Volunteer ID and MEAN of other columns
 TidyDF	    	    - Final Data frame with Means
+ 
